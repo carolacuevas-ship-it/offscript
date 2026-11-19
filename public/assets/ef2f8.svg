@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="638" height="701" viewBox="0 0 638 701" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Image / Philosophy">
+<g clip-path="url(#clip0_0_50)">
+<path id="Vector" d="M638 0H0V701H638V0Z" fill="#E7E1D5"/>
+<g id="Group">
+<path id="Vector_2" d="M240 360C240 330 200 300 200 240C200 170 255 120 319 120C383 120 438 170 438 240C438 300 398 330 398 360H240Z" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke="#111111"/>
+<path id="Vector_3" d="M250 380H388M262 410H376M290 440H348" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke="#111111"/>
+<path id="Vector_4" d="M280 260C300 200 340 320 360 250" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke="#111111"/>
+<path id="Vector_5" d="M319 40V70M200 70L220 95M438 70L418 95M150 180L185 190M488 180L453 190" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke="#111111"/>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_50">
+<rect width="638" height="701" rx="40" fill="white"/>
+</clipPath>
+</defs>
+</svg>

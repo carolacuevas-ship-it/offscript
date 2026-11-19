@@ -1,0 +1,10 @@
+{
+  "description": "Explore a graphic design studio’s portfolio, browse featured projects, and get in touch through a responsive, easy-to-navigate website.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
