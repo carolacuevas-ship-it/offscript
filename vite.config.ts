@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : "/",
+    define: {
+      __NETLIFY_BUILD__: JSON.stringify(process.env.NETLIFY === "true"),
+    },
     build: {
       sourcemap: emitSourcemaps ? "inline" : false,
       minify: !emitSourcemaps,

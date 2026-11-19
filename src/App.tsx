@@ -1598,7 +1598,7 @@ function Studio() {
 
 function Contact() {
   const [submissionStatus, setSubmissionStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
+    "idle" | "submitting" | "success" | "error" | "unsupported"
   >("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -1623,6 +1623,16 @@ function Contact() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encodedData.toString(),
       });
+
+      const handledByNetlify =
+        __NETLIFY_BUILD__ ||
+        window.location.hostname.endsWith(".netlify.app") ||
+        response.headers.has("x-nf-request-id");
+
+      if (!handledByNetlify) {
+        setSubmissionStatus("unsupported");
+        return;
+      }
 
       if (!response.ok) throw new Error("Netlify form submission failed");
 
@@ -1686,14 +1696,18 @@ function Contact() {
           <div className="form-feedback" aria-live="polite">
             {submissionStatus === "success" && (
               <p className="form-status success" role="status">
-                Message sent successfully! Thank you for reaching out. We&apos;ll get back to you
-                soon.
+                Your message has been sent successfully! We&apos;ll get back to you soon.
               </p>
             )}
             {submissionStatus === "error" && (
               <p className="form-status error" role="alert">
-                We couldn&apos;t send your message. Please try again or email hello@offscript.studio
-                directly.
+                Your message could not be sent. Please try again.
+              </p>
+            )}
+            {submissionStatus === "unsupported" && (
+              <p className="form-status error" role="alert">
+                Netlify Forms cannot send messages from the Figma Make preview. Deploy this site to
+                Netlify to enable submissions.
               </p>
             )}
           </div>
