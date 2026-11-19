@@ -1,7 +1,14 @@
 {
-  "description": "Explore a graphic design studio’s portfolio, browse featured projects, and get in touch through a responsive, easy-to-navigate website.",
+  "title": "OFF/SCRIPT — Creative Design Studio",
+  "description": "OFF/SCRIPT is an independent creative studio specializing in visual identity, branding, and digital design.",
   "robots": {
-    "index": false
+    "index": true
+  },
+  "icons": {
+    "icon": "/favicon.png"
+  },
+  "openGraph": {
+    "image": "https://off-script.studio/og-image.png"
   },
   "accessibility": {
     "addBypassLinks": false,

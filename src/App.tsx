@@ -12,6 +12,78 @@ type Route =
   | "/project/jewelry-shape"
   | "/project/crumb";
 
+const SITE_URL = "https://off-script.studio";
+const SOCIAL_IMAGE_URL = `${SITE_URL}/og-image.png`;
+
+const SEO_BY_ROUTE: Record<
+  Route,
+  { title: string; description: string; type?: "website" | "article" }
+> = {
+  "/": {
+    title: "OFF/SCRIPT — Creative Design Studio",
+    description:
+      "OFF/SCRIPT is an independent creative studio specializing in visual identity, branding, and digital design.",
+  },
+  "/work": {
+    title: "Selected Work — OFF/SCRIPT",
+    description:
+      "Explore selected visual identity, branding, and digital design projects by OFF/SCRIPT creative studio.",
+  },
+  "/services": {
+    title: "Creative Services — OFF/SCRIPT",
+    description:
+      "Discover OFF/SCRIPT creative services across brand strategy, visual identity, art direction, and digital design.",
+  },
+  "/studio": {
+    title: "Studio — OFF/SCRIPT",
+    description:
+      "Meet OFF/SCRIPT, an independent creative studio building distinctive identities and digital experiences.",
+  },
+  "/contact": {
+    title: "Contact — OFF/SCRIPT",
+    description:
+      "Contact OFF/SCRIPT to discuss a visual identity, branding, or digital design project.",
+  },
+  "/project/slow-club": {
+    title: "Slow Club — Brand Identity & Web Design | OFF/SCRIPT",
+    description:
+      "Explore Slow Club, a specialty coffee shop brand identity and web design case study by OFF/SCRIPT.",
+    type: "article",
+  },
+  "/project/jewelry-shape": {
+    title: "Shape Jewelry — Brand Identity & Web Design | OFF/SCRIPT",
+    description:
+      "Explore Shape Jewelry, a refined Mexican jewelry brand identity and web design case study by OFF/SCRIPT.",
+    type: "article",
+  },
+  "/project/crumb": {
+    title: "CRUMB. — Brand Identity & Web Design | OFF/SCRIPT",
+    description:
+      "Explore CRUMB., a warm modern cookie brand identity and web design case study by OFF/SCRIPT.",
+    type: "article",
+  },
+};
+
+function setMeta(attribute: "name" | "property", key: string, content: string) {
+  let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(attribute, key);
+    document.head.appendChild(element);
+  }
+  element.content = content;
+}
+
+function setCanonical(url: string) {
+  let element = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!element) {
+    element = document.createElement("link");
+    element.rel = "canonical";
+    document.head.appendChild(element);
+  }
+  element.href = url;
+}
+
 function currentRoute(): Route {
   const path = window.location.hash.replace(/^#/, "") || "/";
   return path as Route;
@@ -1739,6 +1811,28 @@ export default function App() {
     window.addEventListener("hashchange", navigate);
     return () => window.removeEventListener("hashchange", navigate);
   }, []);
+
+  useEffect(() => {
+    const seo = SEO_BY_ROUTE[route] ?? SEO_BY_ROUTE["/"];
+    const pageUrl = route === "/" ? `${SITE_URL}/` : `${SITE_URL}/#${route}`;
+
+    document.title = seo.title;
+    setCanonical(pageUrl);
+    setMeta("name", "description", seo.description);
+    setMeta("name", "robots", "index, follow");
+    setMeta("property", "og:title", seo.title);
+    setMeta("property", "og:description", seo.description);
+    setMeta("property", "og:type", seo.type ?? "website");
+    setMeta("property", "og:site_name", "OFF/SCRIPT");
+    setMeta("property", "og:url", pageUrl);
+    setMeta("property", "og:image", SOCIAL_IMAGE_URL);
+    setMeta("property", "og:image:alt", "OFF/SCRIPT Creative Design Studio");
+    setMeta("name", "twitter:card", "summary_large_image");
+    setMeta("name", "twitter:title", seo.title);
+    setMeta("name", "twitter:description", seo.description);
+    setMeta("name", "twitter:image", SOCIAL_IMAGE_URL);
+    setMeta("name", "twitter:image:alt", "OFF/SCRIPT Creative Design Studio");
+  }, [route]);
 
   let page: React.ReactNode;
   if (route === "/work") page = <Work />;
